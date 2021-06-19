@@ -21,6 +21,10 @@ https://prodtool.tistory.com/18 [생산성 도구 for DA(Data Architect)]
 https://prodtool.tistory.com/22 [생산성 도구 for DA(Data Architect)]   
 
 
+### 배포파일에 포함되어 있는 데이터 표준 사전   
+공공데이터 공통표준용어(행정안전부고시 제2020-42호, 2020.8.11. 시행) 자료(hwp)에 포함되어 있는 표준단어, 표준도메인, 표준용어 사전을 사용하였다.   
+출처: https://www.mois.go.kr/frt/bbs/type001/commonSelectBoardArticle.do;jsessionid=59n3dzqqwIcoJ0w-Sxn5Rw-Q.node50?bbsId=BBSMSTR_000000000016&nttId=79284   
+
 
 ## Word Extractor (준비중)
 현행 속성명으로부터 단어(명사, 복합어)를 추출하여 초기에 표준단어사전을 생성하거나 기존 표준단어사전을 보완하기 위한 도구
