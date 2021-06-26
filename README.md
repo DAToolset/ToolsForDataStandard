@@ -6,19 +6,19 @@ Data Architecture 구성요소중 데이터 표준사전 관련 도구
 
 ### Usage & Source code explanation
 1. 데이터 표준점검 도구_1.개요   
-https://prodtool.tistory.com/10 [생산성 도구 for DA(Data Architect)]  
+https://prodtool.tistory.com/10 [취미로 코딩하는 DA(Data Architect)]  
 
 2. 데이터 표준점검 도구_2.1.화면 구성, 2.2.표준 점검 기능   
-https://prodtool.tistory.com/11 [생산성 도구 for DA(Data Architect)]   
+https://prodtool.tistory.com/11 [취미로 코딩하는 DA(Data Architect)]  
 
 3. 데이터 표준점검 도구_2.3.표준사전 구성   
-https://prodtool.tistory.com/16 [생산성 도구 for DA(Data Architect)]   
+https://prodtool.tistory.com/16 [취미로 코딩하는 DA(Data Architect)]  
 
 4. 데이터 표준점검 도구_3.표준점검 케이스   
-https://prodtool.tistory.com/18 [생산성 도구 for DA(Data Architect)]   
+https://prodtool.tistory.com/18 [취미로 코딩하는 DA(Data Architect)]  
 
 5. 데이터 표준점검 도구_4.별첨   
-https://prodtool.tistory.com/22 [생산성 도구 for DA(Data Architect)]   
+https://prodtool.tistory.com/22 [취미로 코딩하는 DA(Data Architect)]  
 
 
 ### 배포파일에 포함되어 있는 데이터 표준 사전   
@@ -31,8 +31,11 @@ https://prodtool.tistory.com/22 [생산성 도구 for DA(Data Architect)]
 표준단어, 표준용어의 설명(정의) 내용을 작성하기 위하여 네이버 사전을 검색하는 도구   
 
 ### Usage & Source code explanation
-1.네이버 국어사전, 영어사전 검색 도구 사용 방법   
-https://prodtool.tistory.com/28 [생산성 도구 for DA(Data Architect)]  
+1. 네이버 국어사전, 영어사전 검색 도구 사용 방법   
+https://prodtool.tistory.com/28 [취미로 코딩하는 DA(Data Architect)]   
+
+2. 네이버 국어사전, 영어사전 검색 도구 동작 방식과 소스코드 설명   
+https://prodtool.tistory.com/30 [취미로 코딩하는 DA(Data Architect)]   
    
    
 ## Word Extractor (준비중)
