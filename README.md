@@ -5,6 +5,9 @@ Data Architecture 구성요소중 데이터 표준사전 관련 도구
 표준단어/도메인/용어 사전을 작성하고 속성명, 데이터 유형, 길이가 정의된 표준을 준수하는지 점검하는 도구
 
 ### Usage & Source code explanation
+
+**데이터 표준점검 도구 전체 설명 목차: https://prodtool.tistory.com/23**   
+   
 1. 데이터 표준점검 도구_1.개요   
 https://prodtool.tistory.com/10 [취미로 코딩하는 DA(Data Architect)]  
 
@@ -23,7 +26,16 @@ https://prodtool.tistory.com/22 [취미로 코딩하는 DA(Data Architect)]
 
 ### 배포파일에 포함되어 있는 데이터 표준 사전   
 공공데이터 공통표준용어(행정안전부고시 제2020-42호, 2020.8.11. 시행) 자료(hwp)에 포함되어 있는 표준단어, 표준도메인, 표준용어 사전을 사용하였다.   
-출처: https://www.mois.go.kr/frt/bbs/type001/commonSelectBoardArticle.do;jsessionid=59n3dzqqwIcoJ0w-Sxn5Rw-Q.node50?bbsId=BBSMSTR_000000000016&nttId=79284   
+hwp파일에서 표준단어, 표준도메인, 표준용어를 발췌하여 아래 자료(공공데이터 공통표준_202008.xlsx)에 정리하였다.  
+사전 다운로드: [공공데이터 공통표준_202008.xlsx](./%EA%B3%B5%EA%B3%B5%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EA%B3%B5%ED%86%B5%ED%91%9C%EC%A4%80_202008.xlsx)(2021-08-18 추가함)  
+출처: https://www.mois.go.kr/frt/bbs/type001/commonSelectBoardArticle.do?bbsId=BBSMSTR_000000000016&nttId=79284  
+
+
+# 데이터 표준 사전 참고자료 추가 (2021-08-18 추가함)
+공공데이터 공통표준용어(행정안전부고시 제2020-66호, 2020.12.10.)에서 추가된 단어, 도메인, 용어를 엑셀파일로 작성하여 업로드하였다.  
+hwp파일에서 표준단어, 표준도메인, 표준용어를 발췌하여 아래 자료(공공데이터 공통표준_202012.xlsx)에 정리하였다.  
+사전 다운로드: [공공데이터 공통표준_202012.xlsx](./%EA%B3%B5%EA%B3%B5%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EA%B3%B5%ED%86%B5%ED%91%9C%EC%A4%80_202012.xlsx)  
+출처: https://www.mois.go.kr/frt/bbs/type001/commonSelectBoardArticle.do?bbsId=BBSMSTR_000000000016&nttId=81609  
       
    
    
