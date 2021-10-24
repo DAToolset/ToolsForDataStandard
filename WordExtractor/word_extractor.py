@@ -5,6 +5,7 @@ import pandas as pd
 from pandas import Series, DataFrame
 from eunjeon import Mecab
 # from konlpy.tag import Komoran  # For Test(2021-02-21)
+# from datetime import datetime
 import datetime
 import re
 import argparse
@@ -87,18 +88,25 @@ def get_word_list(df_text) -> DataFrame:
                 for word in words:
                     # print(noun, '\t', text)
                     if not is_db:
+                        # sr_text = Series([file_name, file_type, page, text, word],
+                        #                  index=['FileName', 'FileType', 'Page', 'Text', 'Word'])
                         df_word = DataFrame(
                             {'FileName': [file_name], 'FileType': [file_type], 'Page': [page], 'Text': [text],
                              'Word': [word], 'Source': [source]})
                     elif is_db_table:
+                        # sr_text = Series([file_name, file_type, page, text, word, db, schema, table],
+                        #                  index=['FileName', 'FileType', 'Page', 'Text', 'Word', 'DB', 'Schema', 'Table'])
                         df_word = DataFrame(
                             {'FileName': [file_name], 'FileType': [file_type], 'Page': [page], 'Text': [text],
                              'Word': [word], 'DB': [db], 'Schema': [schema], 'Table': [table], 'Source': [source]})
                     elif is_db_column:
+                        # sr_text = Series([file_name, file_type, page, text, word, db, schema, table, column],
+                        #                  index=['FileName', 'FileType', 'Page', 'Text', 'Word', 'DB', 'Schema', 'Table', 'Column'])
                         df_word = DataFrame(
                             {'FileName': [file_name], 'FileType': [file_type], 'Page': [page], 'Text': [text],
                              'Word': [word], 'DB': [db], 'Schema': [schema], 'Table': [table], 'Column': [column],
                              'Source': [source]})
+                    # df_result = df_result.append(sr_text, ignore_index=True)  # Todo: append를 concat으로 바꾸기
                     df_result = pd.concat([df_result, df_word], ignore_index=True)
         except Exception as ex:
             print('[pid:%d] Exception has raised for text: %s' % (os.getpid(), text))
@@ -129,6 +137,7 @@ def get_ppt_text(file_name) -> DataFrame:
     print('\r\nget_ppt_text: %s' % file_name)
     ppt_app = win32com.client.Dispatch('PowerPoint.Application')
     ppt_file = ppt_app.Presentations.Open(file_name, True)
+    # result = []
     df_text = pd.DataFrame()
     page_count = 0
     for slide in ppt_file.Slides:
@@ -156,13 +165,19 @@ def get_ppt_text(file_name) -> DataFrame:
                     sr_text = Series([file_name, 'ppt', slide_number, text, f'{file_name}:{slide_number}:{text}'],
                                      index=['FileName', 'FileType', 'Page', 'Text', 'Source'])
                     df_text = df_text.append(sr_text, ignore_index=True)
+    # print(result)
     ppt_file.Close()
+    # print(df_result)
     print('text count: %s' % str(df_text.shape[0]))
     print('page count: %d' % page_count)
+    # print(df_text.head(10))
+    # print(df_result.Paragraph)
+    # return df_result
     end_time = time.time()
     # elapsed_time = end_time - start_time
     elapsed_time = str(datetime.timedelta(seconds=end_time - start_time))
     print('[pid:%d] get_ppt_text elapsed time: %s' % (os.getpid(), elapsed_time))
+    # return get_word_list(df_text)
     return df_text
 
 
@@ -177,6 +192,7 @@ def get_doc_text(file_name) -> DataFrame:
     print('\r\nget_doc_text: %s' % file_name)
     word_app = win32com.client.Dispatch("Word.Application")
     word_file = word_app.Documents.Open(file_name, True)
+    # result = []
     df_text = pd.DataFrame()
     page = 0
     for paragraph in word_file.Paragraphs:
@@ -194,6 +210,7 @@ def get_doc_text(file_name) -> DataFrame:
     # elapsed_time = end_time - start_time
     elapsed_time = str(datetime.timedelta(seconds=end_time - start_time))
     print('[pid:%d] get_doc_text elapsed time: %s' % (os.getpid(), elapsed_time))
+    # return get_word_list(df_text)
     return df_text
 
 
@@ -221,6 +238,7 @@ def get_txt_text(file_name) -> DataFrame:
     # elapsed_time = end_time - start_time
     elapsed_time = str(datetime.timedelta(seconds=end_time - start_time))
     print('[pid:%d] get_txt_text elapsed time: %s' % (os.getpid(), elapsed_time))
+    # return get_word_list(df_text)
     return df_text
 
 
@@ -235,6 +253,7 @@ def make_word_cloud(df_group, now_dt, out_path):
     start_time = time.time()
     print('\r\nstart make_word_cloud...')
     from wordcloud import WordCloud
+    import matplotlib.pyplot as plt
     # malgun.ttf # NanumSquare.ttf # NanumSquareR.ttf NanumMyeongjo.ttf # NanumBarunpenR.ttf # NanumBarunGothic.ttf
     wc = WordCloud(font_path='.\\font\\NanumBarunGothic.ttf',
                    background_color='white',
@@ -243,13 +262,19 @@ def make_word_cloud(df_group, now_dt, out_path):
                    height=1000
                    )
 
+    # print(df_group.head(10))
     words = df_group.to_dict()['Freq']
+    # print(words)
+    # words = df_group.T.to_dict('list')
     wc.generate_from_frequencies(words)
     wc.to_file('%s\\wordcloud_%s.png' % (out_path, now_dt))
+    # plt.axis('off')
     end_time = time.time()
     # elapsed_time = end_time - start_time
     elapsed_time = str(datetime.timedelta(seconds=end_time - start_time))
     print('make_word_cloud elapsed time: %s' % elapsed_time)
+    # plt.imshow(wc)
+    # plt.show()
 
 
 # Todo: 아래아한글 파일(hwp)에서 text 추출
@@ -312,11 +337,13 @@ def get_db_comment_text(file_name) -> DataFrame:
 
     excel_file.Close()
     df_text = df_column.append(df_table, ignore_index=True)
+    # print(df_text)
     end_time = time.time()
     # elapsed_time = end_time - start_time
     elapsed_time = str(datetime.timedelta(seconds=end_time - start_time))
     print('[pid:%d] get_db_comment_text elapsed time: %s' % (os.getpid(), elapsed_time))
     print('text count: %s' % str(df_text.shape[0]))
+    # return get_word_list(df_text)
     return df_text
 
 
@@ -338,6 +365,7 @@ def get_file_text(file_name) -> DataFrame:
     return df_text
 
 
+# Todo: 병렬 처리(db_comment_file과 in_path 처리 분리, db_comment_file이 큰 경우 분할 처리)
 def main():
     """
     지정한 경로 하위 폴더의 File들에서 Text를 추출하고 각 Text의 명사를 추출하여 엑셀파일로 저장
@@ -357,7 +385,7 @@ def main():
        python word_extractor.py --db_comment_file "table,column comments.xlsx" --out_path .\out
 
     3. File, DB comment 에서 text, 단어 추출: db_comment_file, in_path, out_path 지정
-       python word_extractor.py --db_comment_file "table,column comments.xlsx" --in_path .\test_files --out_path .\out
+       python word_extractor.py --db_comment_file "table,column comments.xlsx" --in_path .\\test_files --out_path .\out
 
   * DB Table, Column comment 파일 형식
     - 첫번째 sheet(Table comment): DBName, SchemaName, Tablename, TableComment
@@ -375,8 +403,9 @@ def main():
 
     args = parser.parse_args()
 
-    multi_process_count = int(args.multi_process_count)
-    if multi_process_count is None:
+    if args.multi_process_count:
+        multi_process_count = int(args.multi_process_count)
+    else:
         multi_process_count = multiprocessing.cpu_count()
 
     db_comment_file = args.db_comment_file
@@ -418,10 +447,10 @@ def main():
         print('--- File List ---')
         print('\n'.join(file_list))
 
+
     if db_comment_file is not None:
         file_list.append(db_comment_file)
 
-    # ---------- text 추출 병렬 실행 ----------
     print('[%s] Start Get File Text...' % get_current_datetime())
     with multiprocessing.Pool(processes=multi_process_count) as pool:
         mp_text_result = pool.map(get_file_text, file_list)
@@ -429,7 +458,7 @@ def main():
     print('[%s] Finish Get File Text.' % get_current_datetime())
     # 여기까지 text 추출완료. 아래에 단어 추출 시작
 
-    # ---------- 단어 추출 병렬 실행 ----------
+    # ---------- 병렬 실행 ----------
     print('[%s] Start Get Word from File Text...' % get_current_datetime())
     df_text_split = np.array_split(df_text, multi_process_count)
     # mp_result = []
@@ -447,12 +476,16 @@ def main():
     # ------------------------------
 
     print('[%s] Start Get Word Frequency...' % get_current_datetime())
+    # df_group = pd.DataFrame(df_result.groupby(by='Word').size().sort_values(ascending=False))
     df_result_subset = df_result[['Word', 'Source']]  # 빈도수를 구하기 위해 필요한 column만 추출
+    # df_group = df_result_subset.groupby(by='Word').agg(['count', lambda x: list(x)])
     df_group = df_result_subset.groupby(by='Word').agg(['count', lambda x: '\n'.join(list(x)[:10])])
     df_group.index.name = 'Word'  # index명 재지정
     df_group.columns = ['Freq', 'Source']  # column명 재지정
     df_group = df_group.sort_values(by='Freq', ascending=False)
     print('[%s] Finish Get Word Frequency.' % get_current_datetime())
+    # df_group['Len'] = df_group['Word'].str.len()
+    # df_group['Len'] = df_group['Word'].apply(lambda x: len(x))
     print('[%s] Start Make Word Cloud...' % get_current_datetime())
     now_dt = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
     make_word_cloud(df_group, now_dt, out_path)
@@ -487,6 +520,7 @@ def main():
         wrap_format = workbook.add_format({'text_wrap': True})
         worksheet.set_column("C:C", None, wrap_format)
 
+    # print('finished writing excel file')
     print('[%s] Finish Save the Extract result to Excel File...' % get_current_datetime())
 
     end_time = time.time()
@@ -500,3 +534,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+    # print_usage()
+    # get_db_comment_text('table,column comments.xlsx')
