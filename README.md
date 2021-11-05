@@ -31,7 +31,7 @@ hwp파일에서 표준단어, 표준도메인, 표준용어를 발췌하여 아�
 출처: https://www.mois.go.kr/frt/bbs/type001/commonSelectBoardArticle.do?bbsId=BBSMSTR_000000000016&nttId=79284  
 
 
-# 데이터 표준 사전 참고자료 추가 (2021-08-18 추가함)
+## 데이터 표준 사전 참고자료 추가 (2021-08-18 추가함)
 공공데이터 공통표준용어(행정안전부고시 제2020-66호, 2020.12.10.)에서 추가된 단어, 도메인, 용어를 엑셀파일로 작성하여 업로드하였다.  
 hwp파일에서 표준단어, 표준도메인, 표준용어를 발췌하여 아래 자료(공공데이터 공통표준_202012.xlsx)에 정리하였다.  
 사전 다운로드: [공공데이터 공통표준_202012.xlsx](./%EA%B3%B5%EA%B3%B5%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EA%B3%B5%ED%86%B5%ED%91%9C%EC%A4%80_202012.xlsx)  
@@ -60,11 +60,12 @@ https://prodtool.tistory.com/30 [취미로 코딩하는 DA(Data Architect)]
 - 또는 그 반대로 Database table, column comment에 내용이 거의 없어서 표준 단어를 추출하기에 부적하고 업무 매뉴얼 등의 문서에서 추출하는 것이 적합한 경우   
 - 그 외, 문서로부터 단어와 빈도 추출이 필요한 경우   
 
-1. 단어 추출 도구(1): 단어 추출 도구 개요   
+
+1. 단어 추출 도구(1): 단어 추출 도구 개요 (Word Extraction Tool(1): Overview of Word Extraction Tool)   
 https://prodtool.tistory.com/76   
 
-2. 단어 추출 도구(2): 단어 추출 도구 실행환경 구성   
+2. 단어 추출 도구(2): 단어 추출 도구 실행환경 구성 (Word Extraction Tool (2): Configure the Word Extraction Tool Execution Environment)   
 https://prodtool.tistory.com/77   
 
-3. 단어 추출 도구(3): 단어 추출 도구 실행, 결과 확인 방법   
+3. 단어 추출 도구(3): 단어 추출 도구 실행, 결과 확인 방법 (Word Extraction Tool (3): How to Run Word Extraction Tool, Check Results)   
 https://prodtool.tistory.com/78   
