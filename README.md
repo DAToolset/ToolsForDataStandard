@@ -50,5 +50,21 @@ https://prodtool.tistory.com/28 [취미로 코딩하는 DA(Data Architect)]
 https://prodtool.tistory.com/30 [취미로 코딩하는 DA(Data Architect)]   
    
    
-## Word Extractor (준비중)
-현행 속성명으로부터 단어(명사, 복합어)를 추출하여 초기에 표준단어사전을 생성하거나 기존 표준단어사전을 보완하기 위한 도구
+## Word Extractor
+현행 속성명으로부터 단어(명사, 복합어)를 추출하여 초기에 표준단어사전을 생성하거나 기존 표준단어사전을 보완하기 위한 도구   
+다음과 같은 경우에 도움이 될 것으로 기대한다.   
+
+- 현행 데이터 표준 사전이 없거나 있더라도 표준단어의 개수가 적은 경우   
+- 업무가 매우 독특하여 참조하기에 적합한 데이터 표준 사전이 없는 경우   
+- Database table, column comment가 너무 방대하여 수작업으로 단어를 추출하는 데 많은 시간이 걸리는 경우   
+- 또는 그 반대로 Database table, column comment에 내용이 거의 없어서 표준 단어를 추출하기에 부적하고 업무 매뉴얼 등의 문서에서 추출하는 것이 적합한 경우   
+- 그 외, 문서로부터 단어와 빈도 추출이 필요한 경우   
+
+1. 단어 추출 도구(1): 단어 추출 도구 개요   
+https://prodtool.tistory.com/76   
+
+2. 단어 추출 도구(2): 단어 추출 도구 실행환경 구성   
+https://prodtool.tistory.com/77   
+
+3. 단어 추출 도구(3): 단어 추출 도구 실행, 결과 확인 방법   
+https://prodtool.tistory.com/78   
