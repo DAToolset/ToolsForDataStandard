@@ -64,8 +64,8 @@ https://prodtool.tistory.com/30 [취미로 코딩하는 DA(Data Architect)]
 실행에 필요한 소스코드, 글꼴, table/column 목록 예시 파일, 출력 예시 파일을 배포용 압축파일로 묶어 두었으니, 이 파일을 다운로드 받으면 된다.   
 - 배표용 압축파일: word_extractor.7z   
     
+    
 ### Usage & Source code explanation    
-
 1. 단어 추출 도구(1): 단어 추출 도구 개요 (Word Extraction Tool(1): Overview of Word Extraction Tool)   
 https://prodtool.tistory.com/76   
 
@@ -74,3 +74,9 @@ https://prodtool.tistory.com/77
 
 3. 단어 추출 도구(3): 단어 추출 도구 실행, 결과 확인 방법 (Word Extraction Tool (3): How to Run Word Extraction Tool, Check Results)   
 https://prodtool.tistory.com/78   
+
+4. 단어 추출 도구(4): 단어 추출 도구 소스코드 설명(1) (Word Extraction Tool(4): Word Extraction Tool Source Code Description(1))   
+https://prodtool.tistory.com/79   
+
+5. 단어 추출 도구(5): 단어 추출 도구 소스코드 설명(2) (Word Extraction Tool(5): Word Extraction Tool Source Code Description(2))   
+https://prodtool.tistory.com/80   
