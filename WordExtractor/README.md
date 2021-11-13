@@ -21,3 +21,9 @@ https://prodtool.tistory.com/77
 
 3. 단어 추출 도구(3): 단어 추출 도구 실행, 결과 확인 방법 (Word Extraction Tool (3): How to Run Word Extraction Tool, Check Results)   
 https://prodtool.tistory.com/78   
+
+4. 단어 추출 도구(4): 단어 추출 도구 소스코드 설명(1) (Word Extraction Tool(4): Word Extraction Tool Source Code Description(1))   
+https://prodtool.tistory.com/79   
+
+5. 단어 추출 도구(5): 단어 추출 도구 소스코드 설명(2) (Word Extraction Tool(5): Word Extraction Tool Source Code Description(2))   
+https://prodtool.tistory.com/80   
