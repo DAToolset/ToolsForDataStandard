@@ -27,3 +27,10 @@ https://prodtool.tistory.com/79
 
 5. 단어 추출 도구(5): 단어 추출 도구 소스코드 설명(2) (Word Extraction Tool(5): Word Extraction Tool Source Code Description(2))   
 https://prodtool.tistory.com/80   
+
+6. 단어 추출 도구(6): 단어 추출 도구 부가 설명 (Word Extraction Tool (6): Additional Description of Word Extraction Tool)   
+https://prodtool.tistory.com/81   
+
+7. 단어 추출 도구 설명글 목록, 목차, 다운로드 (Word Extraction Tool Description article list, table of contents, download)   
+https://prodtool.tistory.com/82   
+
