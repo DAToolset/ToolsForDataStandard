@@ -49,7 +49,7 @@ https://prodtool.tistory.com/28 [취미로 코딩하는 DA(Data Architect)]
 2. 네이버 국어사전, 영어사전 검색 도구 동작 방식과 소스코드 설명   
 https://prodtool.tistory.com/30 [취미로 코딩하는 DA(Data Architect)]   
 
-3. 네이버 국어사전, 영어사전 검색 도구_v1.01_20220708
+3. 네이버 국어사전, 영어사전 검색 도구_v1.01_20220708   
 https://prodtool.tistory.com/113 [취미로 코딩하는 DA(Data Architect)]   
 
    
