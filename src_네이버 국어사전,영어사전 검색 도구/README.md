@@ -1,4 +1,4 @@
-# 네이버 국어사전,영어사전 검색 도구의 엑셀 VBA source code이다.   
+# 네이버 국어사전,영어사전 검색 도구의 엑셀 VBA source code
 
 - sht_SearchDictionary.vb: 사전검색 시트
 - JsonConverter.vb: JSON 문자열을 parsing하는 모듈 (출처: https://github.com/VBA-tools/VBA-JSON)
