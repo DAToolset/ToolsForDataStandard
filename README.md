@@ -6,22 +6,25 @@ Data Architecture 구성요소중 데이터 표준사전 관련 도구
 
 ### Usage & Source code explanation
 
-**데이터 표준점검 도구 전체 설명 목차: https://prodtool.tistory.com/23**   
+**데이터 표준점검 도구 전체 설명 목차: https://prodskill.com/ko/data-standard-checker-toc/**   
    
 1. 데이터 표준점검 도구_1.개요   
-https://prodtool.tistory.com/10 [취미로 코딩하는 DA(Data Architect)]  
+https://prodskill.com/ko/data-standard-checker-1-overview/ [생산성 Skill Blog]   
 
 2. 데이터 표준점검 도구_2.1.화면 구성, 2.2.표준 점검 기능   
-https://prodtool.tistory.com/11 [취미로 코딩하는 DA(Data Architect)]  
+https://prodskill.com/ko/data-standard-checker-2-ui-function-license/ [생산성 Skill Blog]   
 
 3. 데이터 표준점검 도구_2.3.표준사전 구성   
-https://prodtool.tistory.com/16 [취미로 코딩하는 DA(Data Architect)]  
+https://prodskill.com/ko/data-standard-checker-3-standard-dictionary/ [생산성 Skill Blog]   
 
 4. 데이터 표준점검 도구_3.표준점검 케이스   
-https://prodtool.tistory.com/18 [취미로 코딩하는 DA(Data Architect)]  
+https://prodskill.com/ko/data-standard-checker-4-case-study/ [생산성 Skill Blog]   
 
 5. 데이터 표준점검 도구_4.별첨   
-https://prodtool.tistory.com/22 [취미로 코딩하는 DA(Data Architect)]  
+https://prodskill.com/ko/data-standard-checker-5-appendix/ [생산성 Skill Blog]   
+
+6. 데이터 표준점검 도구_v1.33 오류 “메모리가 부족합니다” 해결 방법   
+https://prodskill.com/ko/data-standard-checker-memory-error/ [생산성 Skill Blog]   
 
 
 ### 배포파일에 포함되어 있는 데이터 표준 사전   
@@ -31,7 +34,8 @@ hwp파일에서 표준단어, 표준도메인, 표준용어를 발췌하여 아�
 출처: https://www.mois.go.kr/frt/bbs/type001/commonSelectBoardArticle.do?bbsId=BBSMSTR_000000000016&nttId=79284  
 
 
-## 데이터 표준 사전 참고자료 추가 (2021-08-18 추가함)
+## 데이터 표준 사전 참고자료 추가 (2021-08-18 추가함)   
+https://prodskill.com/ko/open-government-data-common-standard/ [생산성 Skill Blog]   
 공공데이터 공통표준용어(행정안전부고시 제2020-66호, 2020.12.10.)에서 추가된 단어, 도메인, 용어를 엑셀파일로 작성하여 업로드하였다.  
 hwp파일에서 표준단어, 표준도메인, 표준용어를 발췌하여 아래 자료(공공데이터 공통표준_202012.xlsx)에 정리하였다.  
 사전 다운로드: [공공데이터 공통표준_202012.xlsx](./%EA%B3%B5%EA%B3%B5%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EA%B3%B5%ED%86%B5%ED%91%9C%EC%A4%80_202012.xlsx)  
@@ -44,13 +48,13 @@ hwp파일에서 표준단어, 표준도메인, 표준용어를 발췌하여 아�
 
 ### Usage & Source code explanation
 1. 네이버 국어사전, 영어사전 검색 도구 사용 방법   
-https://prodtool.tistory.com/28 [취미로 코딩하는 DA(Data Architect)]   
+https://prodskill.com/ko/naver-korean-english-dictionary-search-tool-overview/ [생산성 Skill Blog]   
 
 2. 네이버 국어사전, 영어사전 검색 도구 동작 방식과 소스코드 설명   
-https://prodtool.tistory.com/30 [취미로 코딩하는 DA(Data Architect)]   
+https://prodskill.com/ko/naver-korean-english-dictionary-search-tool-operation-sourcecode/ [생산성 Skill Blog]   
 
 3. 네이버 국어사전, 영어사전 검색 도구_v1.01_20220708   
-https://prodtool.tistory.com/113 [취미로 코딩하는 DA(Data Architect)]   
+https://prodskill.com/ko/naver-korean-english-dictionary-search-tool-update-20220708/ [생산성 Skill Blog]   
 
    
 ## Word Extractor
@@ -70,23 +74,23 @@ https://prodtool.tistory.com/113 [취미로 코딩하는 DA(Data Architect)]
     
 ### Usage & Source code explanation    
 1. 단어 추출 도구(1): 단어 추출 도구 개요 (Word Extraction Tool(1): Overview of Word Extraction Tool)   
-https://prodtool.tistory.com/76   
+https://prodskill.com/ko/word-extractor-overview/   
 
 2. 단어 추출 도구(2): 단어 추출 도구 실행환경 구성 (Word Extraction Tool (2): Configure the Word Extraction Tool Execution Environment)   
-https://prodtool.tistory.com/77   
+https://prodskill.com/ko/word-extractor-config-runtime-environment/   
 
 3. 단어 추출 도구(3): 단어 추출 도구 실행, 결과 확인 방법 (Word Extraction Tool (3): How to Run Word Extraction Tool, Check Results)   
-https://prodtool.tistory.com/78   
+https://prodskill.com/ko/word-extractor-run-and-check-result/   
 
 4. 단어 추출 도구(4): 단어 추출 도구 소스코드 설명(1) (Word Extraction Tool(4): Word Extraction Tool Source Code Description(1))   
-https://prodtool.tistory.com/79   
+https://prodskill.com/ko/word-extractor-source-code-1/   
 
 5. 단어 추출 도구(5): 단어 추출 도구 소스코드 설명(2) (Word Extraction Tool(5): Word Extraction Tool Source Code Description(2))   
-https://prodtool.tistory.com/80   
+https://prodskill.com/ko/word-extractor-source-code-2/   
 
 6. 단어 추출 도구(6): 단어 추출 도구 부가 설명 (Word Extraction Tool (6): Additional Description of Word Extraction Tool)   
-https://prodtool.tistory.com/81   
+https://prodskill.com/ko/word-extractor-additional-information/   
 
 7. 단어 추출 도구 설명글 목록, 목차, 다운로드 (Word Extraction Tool Description article list, table of contents, download)   
-https://prodtool.tistory.com/82   
+https://prodskill.com/ko/word-extractor-toc/   
 
