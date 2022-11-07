@@ -64,7 +64,7 @@ https://prodskill.com/ko/naver-korean-english-dictionary-search-tool-update-2022
 - 현행 데이터 표준 사전이 없거나 있더라도 표준단어의 개수가 적은 경우   
 - 업무가 매우 독특하여 참조하기에 적합한 데이터 표준 사전이 없는 경우   
 - Database table, column comment가 너무 방대하여 수작업으로 단어를 추출하는 데 많은 시간이 걸리는 경우   
-- 또는 그 반대로 Database table, column comment에 내용이 거의 없어서 표준 단어를 추출하기에 부적하고 업무 매뉴얼 등의 문서에서 추출하는 것이 적합한 경우   
+- 또는 그 반대로 Database table, column comment에 내용이 거의 없어서 표준 단어를 추출하기에 부적합하고 업무 매뉴얼 등의 문서에서 추출하는 것이 적합한 경우   
 - 그 외, 문서로부터 단어와 빈도 추출이 필요한 경우   
 
    
