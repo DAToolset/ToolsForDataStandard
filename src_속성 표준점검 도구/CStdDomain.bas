@@ -9,36 +9,46 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 
-Public m_s╣╣╦чюн╨п╥Ы╦М As String
-Public m_s╣╣╦чюнЁМ╦╝╦М As String
-Public m_s╣╣╦чюн╧╟╦╝╦М As String
-Public m_s╣╣╦чюн╪Ё╦М As String
-Public m_s╣╔юлеме╦ют╦М As String
-Public m_i╠Фюл As Integer
-Public m_iа╓╣╣ As Integer
-Public m_s╣╔юлеме╦ют╠Фюл╦М As String
+Public m_sК▐└К╘■Л²╦К╤└К╔≤К╙┘ As String
+Public m_sК▐└К╘■Л²╦К┘╪К╕╛К╙┘ As String
+Public m_sК▐└К╘■Л²╦К╛╪К╕╛К╙┘ As String
+Public m_sК▐└К╘■Л²╦Л└╓К╙┘ As String
+Public m_sК█╟Л²╢М└╟М┐─Л·┘К╙┘ As String
+Public m_iЙ╦╦Л²╢ As Integer
+Public m_sЙ╦╦Л²╢ As String
+Public m_iЛ═∙К▐└ As Integer
+Public m_sК█╟Л²╢М└╟М┐─Л·┘Й╦╦Л²╢К╙┘ As String
 
-Public Sub SetDomain(a╣╔юлеме╦ют╦М As String)
+Public Sub SetDomain(aК█╟Л²╢М└╟М┐─Л·┘К╙┘ As String)
     Dim iPos1 As Integer: iPos1 = 1
     Dim iPos2 As Integer: iPos2 = 1
     Dim iPos3 As Integer: iPos3 = 1
 
-    Me.m_s╣╔юлеме╦ют╠Фюл╦М = a╣╔юлеме╦ют╦М
-    Me.m_i╠Фюл = 0
-    Me.m_iа╓╣╣ = 0
-    iPos1 = InStr(1, a╣╔юлеме╦ют╦М, "(")
-    If iPos1 = 0 Then ' ╟Щхё ╬Ь╢б ╟Ф©Л
-        Me.m_s╣╔юлеме╦ют╦М = a╣╔юлеме╦ют╦М
+    Me.m_sК█╟Л²╢М└╟М┐─Л·┘Й╦╦Л²╢К╙┘ = aК█╟Л²╢М└╟М┐─Л·┘К╙┘
+    Me.m_iЙ╦╦Л²╢ = 0: Me.m_sЙ╦╦Л²╢ = ""
+    Me.m_iЛ═∙К▐└ = 0
+    iPos1 = InStr(1, aК█╟Л²╢М└╟М┐─Л·┘К╙┘, "(")
+    If iPos1 = 0 Then ' Й╢└М≤╦ Л≈├К┼■ Й╡╫Л ╟
+        Me.m_sК█╟Л²╢М└╟М┐─Л·┘К╙┘ = aК█╟Л²╢М└╟М┐─Л·┘К╙┘
         Exit Sub
     End If
-    Me.m_s╣╔юлеме╦ют╦М = Mid(a╣╔юлеме╦ют╦М, 1, iPos1 - 1)
+    Me.m_sК█╟Л²╢М└╟М┐─Л·┘К╙┘ = Mid(aК█╟Л²╢М└╟М┐─Л·┘К╙┘, 1, iPos1 - 1)
 
-    iPos2 = InStr(iPos1, a╣╔юлеме╦ют╦М, ",")
-    If iPos2 = 0 Then ' comma ╬Ь╢б ╟Ф©Л
-        Me.m_i╠Фюл = Mid(a╣╔юлеме╦ют╦М, iPos1 + 1, Len(a╣╔юлеме╦ют╦М) - iPos1 - 1)
+    iPos2 = InStr(iPos1, aК█╟Л²╢М└╟М┐─Л·┘К╙┘, ",")
+    Dim sToken As String
+    If iPos2 = 0 Then ' comma Л≈├К┼■ Й╡╫Л ╟
+        sToken = Mid(aК█╟Л²╢М└╟М┐─Л·┘К╙┘, iPos1 + 1, Len(aК█╟Л²╢М└╟М┐─Л·┘К╙┘) - iPos1 - 1)
+        If IsNumeric(sToken) Then
+            Me.m_iЙ╦╦Л²╢ = CInt(sToken)
+        Else
+            Me.m_sЙ╦╦Л²╢ = sToken
+        End If
         Exit Sub
     End If
-    Me.m_i╠Фюл = Mid(a╣╔юлеме╦ют╦М, iPos1 + 1, iPos2 - iPos1 - 1)
-    Me.m_iа╓╣╣ = Mid(a╣╔юлеме╦ют╦М, iPos2 + 1, Len(a╣╔юлеме╦ют╦М) - iPos2 - 1)
+    Me.m_iЙ╦╦Л²╢ = Mid(aК█╟Л²╢М└╟М┐─Л·┘К╙┘, iPos1 + 1, iPos2 - iPos1 - 1)
+    Me.m_iЛ═∙К▐└ = Mid(aК█╟Л²╢М└╟М┐─Л·┘К╙┘, iPos2 + 1, Len(aК█╟Л²╢М└╟М┐─Л·┘К╙┘) - iPos2 - 1)
 End Sub
 
+Public Function IsStringLength() As Boolean
+    IsStringLength = (m_sЙ╦╦Л²╢ <> "")
+End Function

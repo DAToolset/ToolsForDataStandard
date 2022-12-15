@@ -9,9 +9,9 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 
-Public m_oStdDomainDic As Dictionary 'Key: µµ¸ŞÀÎºĞ·ù¸í, Value: CStdDomainÀÇ Collection
-Public m_oStdDomainDicT As Dictionary 'Key: µµ¸ŞÀÎºĞ·ù¸í, Value: Dictionary(Key:m_sµ¥ÀÌÅÍÅ¸ÀÔ±æÀÌ¸í, Value: CStdDomainÀÇ Collection)
-Public m_oStdWordDic As CStdWordDic '´Ü¾î»çÀü(¼Ó¼ººĞ·ù¾îÀÇ µµ¸ŞÀÎºĞ·ù¸íÀ» È®ÀÎÇÏ´Â ¿ëµµ)
+Public m_oStdDomainDic As Dictionary 'Key: ë„ë©”ì¸ë¶„ë¥˜ëª…, Value: CStdDomainì˜ Collection
+Public m_oStdDomainDicT As Dictionary 'Key: ë„ë©”ì¸ë¶„ë¥˜ëª…, Value: Dictionary(Key:m_së°ì´í„°íƒ€ì…ê¸¸ì´ëª…, Value: CStdDomainì˜ Collection)
+Public m_oStdWordDic As CStdWordDic 'ë‹¨ì–´ì‚¬ì „(ì†ì„±ë¶„ë¥˜ì–´ì˜ ë„ë©”ì¸ë¶„ë¥˜ëª…ì„ í™•ì¸í•˜ëŠ” ìš©ë„)
 Public m_eStdDicMatchOption As StdDicMatchOption
 
 Private Sub Class_Initialize()
@@ -33,18 +33,18 @@ End Sub
 
 Public Sub Add(aStdDomain As CStdDomain)
     Dim oStdDomainCol As Collection
-    If m_oStdDomainDic.Exists(aStdDomain.m_sµµ¸ŞÀÎºĞ·ù¸í) Then
-        Set oStdDomainCol = m_oStdDomainDic(aStdDomain.m_sµµ¸ŞÀÎºĞ·ù¸í)
+    If m_oStdDomainDic.Exists(aStdDomain.m_së„ë©”ì¸ë¶„ë¥˜ëª…) Then
+        Set oStdDomainCol = m_oStdDomainDic(aStdDomain.m_së„ë©”ì¸ë¶„ë¥˜ëª…)
     Else
         Set oStdDomainCol = New Collection
-        m_oStdDomainDic.Add aStdDomain.m_sµµ¸ŞÀÎºĞ·ù¸í, oStdDomainCol
+        m_oStdDomainDic.Add aStdDomain.m_së„ë©”ì¸ë¶„ë¥˜ëª…, oStdDomainCol
     End If
     oStdDomainCol.Add aStdDomain
 End Sub
 
-Public Function GetDomainCollection(aµµ¸ŞÀÎºĞ·ù¸í As String) As Collection
-    If m_oStdDomainDic.Exists(aµµ¸ŞÀÎºĞ·ù¸í) Then
-        Set GetDomainCollection = m_oStdDomainDic(aµµ¸ŞÀÎºĞ·ù¸í)
+Public Function GetDomainCollection(aë„ë©”ì¸ë¶„ë¥˜ëª… As String) As Collection
+    If m_oStdDomainDic.Exists(aë„ë©”ì¸ë¶„ë¥˜ëª…) Then
+        Set GetDomainCollection = m_oStdDomainDic(aë„ë©”ì¸ë¶„ë¥˜ëª…)
     End If
 End Function
 
@@ -52,104 +52,108 @@ Public Sub Load(aBaseRange As Range)
     Dim oStdDomain As CStdDomain
     Dim lRow As Long
 
-    '¸ñ·Ï¿¡ ¾Æ¹« °ªÀÌ ¾ø´Â °æ¿ì exit
+    'ëª©ë¡ì— ì•„ë¬´ ê°’ì´ ì—†ëŠ” ê²½ìš° exit
     If Trim(aBaseRange.Offset(1, 0)) = "" Then Exit Sub
 
     Dim vRngArr As Variant
-    vRngArr = Range(aBaseRange, aBaseRange.End(xlDown)).Resize(, 8).Value2 'ÀĞ´Â ¹üÀ§: 8°³ ÄÃ·³
+    vRngArr = Range(aBaseRange, aBaseRange.End(xlDown)).Resize(, 8).Value2 'ì½ëŠ” ë²”ìœ„: 8ê°œ ì»¬ëŸ¼
 
     For lRow = LBound(vRngArr) To UBound(vRngArr)
         Set oStdDomain = New CStdDomain
         With oStdDomain
-            .m_sµµ¸ŞÀÎºĞ·ù¸í = vRngArr(lRow, 1)
-            .m_sµµ¸ŞÀÎ³í¸®¸í = vRngArr(lRow, 2)
-            .m_sµµ¸ŞÀÎ¹°¸®¸í = vRngArr(lRow, 3)
-            .m_sµµ¸ŞÀÎ¼³¸í = vRngArr(lRow, 4)
-            .m_sµ¥ÀÌÅÍÅ¸ÀÔ¸í = vRngArr(lRow, 5)
-            .m_i±æÀÌ = vRngArr(lRow, 6)
-            .m_iÁ¤µµ = vRngArr(lRow, 7)
-            .m_sµ¥ÀÌÅÍÅ¸ÀÔ±æÀÌ¸í = vRngArr(lRow, 8)
-            '.m_sµ¥ÀÌÅÍÅ¸ÀÔ±æÀÌ¸í = GetDataTypeStr(.m_sµ¥ÀÌÅÍÅ¸ÀÔ¸í, .m_i±æÀÌ, .m_iÁ¤µµ)
+            .m_së„ë©”ì¸ë¶„ë¥˜ëª… = vRngArr(lRow, 1)
+            .m_së„ë©”ì¸ë…¼ë¦¬ëª… = vRngArr(lRow, 2)
+            .m_së„ë©”ì¸ë¬¼ë¦¬ëª… = vRngArr(lRow, 3)
+            .m_së„ë©”ì¸ì„¤ëª… = vRngArr(lRow, 4)
+            .m_së°ì´í„°íƒ€ì…ëª… = vRngArr(lRow, 5)
+            If TypeName(vRngArr(lRow, 6)) = "String" Then
+                .m_sê¸¸ì´ = CStr(vRngArr(lRow, 6))
+            Else
+                .m_iê¸¸ì´ = vRngArr(lRow, 6)
+            End If
+            .m_iì •ë„ = vRngArr(lRow, 7)
+            .m_së°ì´í„°íƒ€ì…ê¸¸ì´ëª… = vRngArr(lRow, 8)
+            '.m_së°ì´í„°íƒ€ì…ê¸¸ì´ëª… = GetDataTypeStr(.m_së°ì´í„°íƒ€ì…ëª…, .m_iê¸¸ì´, .m_iì •ë„)
         End With
 
         Me.Add oStdDomain
     Next lRow
 
-    'µ¥ÀÌÅÍÅ¸ÀÔ±æÀÌ¸í °Ë»ö¿ë Dictionary build
-    Dim oKey As Variant, sµµ¸ŞÀÎºĞ·ù¸í As String
+    'ë°ì´í„°íƒ€ì…ê¸¸ì´ëª… ê²€ìƒ‰ìš© Dictionary build
+    Dim oKey As Variant, së„ë©”ì¸ë¶„ë¥˜ëª… As String
     Dim oStdDomainCollection As Collection, oTypeDic As Dictionary
     For Each oKey In m_oStdDomainDic.Keys
-        sµµ¸ŞÀÎºĞ·ù¸í = oKey
-        'Set oStdDomain = m_oStdDomainDic(sµµ¸ŞÀÎºĞ·ù¸í)
-        Set oStdDomainCollection = m_oStdDomainDic(sµµ¸ŞÀÎºĞ·ù¸í)
+        së„ë©”ì¸ë¶„ë¥˜ëª… = oKey
+        'Set oStdDomain = m_oStdDomainDic(së„ë©”ì¸ë¶„ë¥˜ëª…)
+        Set oStdDomainCollection = m_oStdDomainDic(së„ë©”ì¸ë¶„ë¥˜ëª…)
         For Each oStdDomain In oStdDomainCollection
-            If m_oStdDomainDicT.Exists(sµµ¸ŞÀÎºĞ·ù¸í) Then
-                Set oTypeDic = m_oStdDomainDicT(sµµ¸ŞÀÎºĞ·ù¸í)
+            If m_oStdDomainDicT.Exists(së„ë©”ì¸ë¶„ë¥˜ëª…) Then
+                Set oTypeDic = m_oStdDomainDicT(së„ë©”ì¸ë¶„ë¥˜ëª…)
             Else
                 Set oTypeDic = New Dictionary
-                m_oStdDomainDicT.Add sµµ¸ŞÀÎºĞ·ù¸í, oTypeDic
+                m_oStdDomainDicT.Add së„ë©”ì¸ë¶„ë¥˜ëª…, oTypeDic
             End If
-On Error Resume Next 'µµ¸ŞÀÎºĞ·ù¸í ³»ÀÇ µ¥ÀÌÅÍÅ¸ÀÔ±æÀÌ¸íÀÌ Áßº¹µÇµµ ¹«½Ã
-            oTypeDic.Add oStdDomain.m_sµ¥ÀÌÅÍÅ¸ÀÔ±æÀÌ¸í, oStdDomain
+On Error Resume Next 'ë„ë©”ì¸ë¶„ë¥˜ëª… ë‚´ì˜ ë°ì´í„°íƒ€ì…ê¸¸ì´ëª…ì´ ì¤‘ë³µë˜ë„ ë¬´ì‹œ
+            oTypeDic.Add oStdDomain.m_së°ì´í„°íƒ€ì…ê¸¸ì´ëª…, oStdDomain
 On Error GoTo 0
         Next
     Next
 End Sub
 
-'¼Ó¼ºµ¥ÀÌÅÍÅ¸ÀÔ±æÀÌ¸í°ú Ç¥ÁØ¿ë¾îÀÇ µ¥ÀÌÅÍÅ¸ÀÔ±æÀÌ¸íÀ» ºñ±³ÇÑ °á°ú return
-'Public Function GetCheckAttrDataType(a¼Ó¼ºÁ¾°á¾î As String, _
-'       a¼Ó¼ºµ¥ÀÌÅÍÅ¸ÀÔ±æÀÌ¸í As String, aÇ¥ÁØ¿ë¾îµ¥ÀÌÅÍÅ¸ÀÔ±æÀÌ¸í As String)
-Public Function GetCheckAttrDataType(a¼Ó¼ºÁ¾°á¾î As String, a¼Ó¼ºÁ¾°á¾îStdWord As CStdWord, _
-        a¼Ó¼ºµ¥ÀÌÅÍÅ¸ÀÔ±æÀÌ¸í As String, aÇ¥ÁØ¿ë¾îµ¥ÀÌÅÍÅ¸ÀÔ±æÀÌ¸í As String, _
+'ì†ì„±ë°ì´í„°íƒ€ì…ê¸¸ì´ëª…ê³¼ í‘œì¤€ìš©ì–´ì˜ ë°ì´í„°íƒ€ì…ê¸¸ì´ëª…ì„ ë¹„êµí•œ ê²°ê³¼ return
+'Public Function GetCheckAttrDataType(aì†ì„±ì¢…ê²°ì–´ As String, _
+'       aì†ì„±ë°ì´í„°íƒ€ì…ê¸¸ì´ëª… As String, aí‘œì¤€ìš©ì–´ë°ì´í„°íƒ€ì…ê¸¸ì´ëª… As String)
+Public Function GetCheckAttrDataType(aì†ì„±ì¢…ê²°ì–´ As String, aì†ì„±ì¢…ê²°ì–´StdWord As CStdWord, _
+        aì†ì„±ë°ì´í„°íƒ€ì…ê¸¸ì´ëª… As String, aí‘œì¤€ìš©ì–´ë°ì´í„°íƒ€ì…ê¸¸ì´ëª… As String, _
         Optional aStdWord As CStdWord) As String
 
     Dim sResult As String, oStdDomain As CStdDomain, oStdDomainTerm As CStdDomain, oStdDomainAtt As CStdDomain
-    Dim s¼Ó¼ºÁ¾°á¾î_µµ¸ŞÀÎºĞ·ù¸í As String, oStdWord As CStdWord, b¼Ó¼ºÁ¾°á¾î_µµ¸ŞÀÎºĞ·ùÁ¸Àç¿©ºÎ As Boolean
+    Dim sì†ì„±ì¢…ê²°ì–´_ë„ë©”ì¸ë¶„ë¥˜ëª… As String, oStdWord As CStdWord, bì†ì„±ì¢…ê²°ì–´_ë„ë©”ì¸ë¶„ë¥˜ì¡´ì¬ì—¬ë¶€ As Boolean
 
-    If a¼Ó¼ºµ¥ÀÌÅÍÅ¸ÀÔ±æÀÌ¸í = "" Then
-        sResult = "¼Ó¼º Data Type ÁöÁ¤ ÇÊ¿ä"
+    If aì†ì„±ë°ì´í„°íƒ€ì…ê¸¸ì´ëª… = "" Then
+        sResult = "ì†ì„± Data Type ì§€ì • í•„ìš”"
         GetCheckAttrDataType = sResult
         Exit Function
     End If
 
-    Set oStdDomainAtt = New CStdDomain '¼Ó¼º µ¥ÀÌÅÍÅ¸ÀÔ(ºñ±³¿ë)
-    oStdDomainAtt.SetDomain a¼Ó¼ºµ¥ÀÌÅÍÅ¸ÀÔ±æÀÌ¸í
+    Set oStdDomainAtt = New CStdDomain 'ì†ì„± ë°ì´í„°íƒ€ì…(ë¹„êµìš©)
+    oStdDomainAtt.SetDomain aì†ì„±ë°ì´í„°íƒ€ì…ê¸¸ì´ëª…
 
-    If aÇ¥ÁØ¿ë¾îµ¥ÀÌÅÍÅ¸ÀÔ±æÀÌ¸í > "" Then
+    If aí‘œì¤€ìš©ì–´ë°ì´í„°íƒ€ì…ê¸¸ì´ëª… > "" Then
         '------------------------------------------------------------------------------------------
-        'Ç¥ÁØ¿ë¾î·Î ¸ÅÄªµÈ °æ¿ì
-        Set oStdDomainTerm = New CStdDomain 'Ç¥ÁØ¿ë¾îµ¥ÀÌÅÍÅ¸ÀÔ(ºñ±³¿ë)
-        oStdDomainTerm.SetDomain aÇ¥ÁØ¿ë¾îµ¥ÀÌÅÍÅ¸ÀÔ±æÀÌ¸í
+        'í‘œì¤€ìš©ì–´ë¡œ ë§¤ì¹­ëœ ê²½ìš°
+        Set oStdDomainTerm = New CStdDomain 'í‘œì¤€ìš©ì–´ë°ì´í„°íƒ€ì…(ë¹„êµìš©)
+        oStdDomainTerm.SetDomain aí‘œì¤€ìš©ì–´ë°ì´í„°íƒ€ì…ê¸¸ì´ëª…
 
-        sResult = GetCompareResult("Ç¥ÁØ¿ë¾î", oStdDomainAtt, oStdDomainTerm)
+        sResult = GetCompareResult("í‘œì¤€ìš©ì–´", oStdDomainAtt, oStdDomainTerm)
     Else
         '------------------------------------------------------------------------------------------
-        'Ç¥ÁØ´Ü¾î·Î ¸ÅÄªµÈ °æ¿ì
+        'í‘œì¤€ë‹¨ì–´ë¡œ ë§¤ì¹­ëœ ê²½ìš°
 
-        sResult = "µµ¸ŞÀÎ Á¡°Ë °á°ú"
-        '¼Ó¼ºÁ¾°á¾î·Î µµ¸ŞÀÎºĞ·ù Ã£±â
-        s¼Ó¼ºÁ¾°á¾î_µµ¸ŞÀÎºĞ·ù¸í = a¼Ó¼ºÁ¾°á¾î
-        If Not a¼Ó¼ºÁ¾°á¾îStdWord Is Nothing Then
-            s¼Ó¼ºÁ¾°á¾î_µµ¸ŞÀÎºĞ·ù¸í = a¼Ó¼ºÁ¾°á¾îStdWord.m_sµµ¸ŞÀÎºĞ·ù¸í
+        sResult = "ë„ë©”ì¸ ì ê²€ ê²°ê³¼"
+        'ì†ì„±ì¢…ê²°ì–´ë¡œ ë„ë©”ì¸ë¶„ë¥˜ ì°¾ê¸°
+        sì†ì„±ì¢…ê²°ì–´_ë„ë©”ì¸ë¶„ë¥˜ëª… = aì†ì„±ì¢…ê²°ì–´
+        If Not aì†ì„±ì¢…ê²°ì–´StdWord Is Nothing Then
+            sì†ì„±ì¢…ê²°ì–´_ë„ë©”ì¸ë¶„ë¥˜ëª… = aì†ì„±ì¢…ê²°ì–´StdWord.m_së„ë©”ì¸ë¶„ë¥˜ëª…
         Else
-            sResult = sResult + vbLf + "¼Ó¼ºÁ¾°á¾î: Ç¥ÁØ´Ü¾î ¾øÀ½(" & a¼Ó¼ºÁ¾°á¾î & ")"
+            sResult = sResult + vbLf + "ì†ì„±ì¢…ê²°ì–´: í‘œì¤€ë‹¨ì–´ ì—†ìŒ(" & aì†ì„±ì¢…ê²°ì–´ & ")"
         End If
 
-        Set oStdDomain = GetStdDomain(aµµ¸ŞÀÎºĞ·ù¸í:=s¼Ó¼ºÁ¾°á¾î_µµ¸ŞÀÎºĞ·ù¸í _
-                                , aµ¥ÀÌÅÍÅ¸ÀÔ±æÀÌ¸í:=a¼Ó¼ºµ¥ÀÌÅÍÅ¸ÀÔ±æÀÌ¸í _
-                                , aµµ¸ŞÀÎºĞ·ù¸íÁ¸Àç¿©ºÎ:=b¼Ó¼ºÁ¾°á¾î_µµ¸ŞÀÎºĞ·ùÁ¸Àç¿©ºÎ)
+        Set oStdDomain = GetStdDomain(aë„ë©”ì¸ë¶„ë¥˜ëª…:=sì†ì„±ì¢…ê²°ì–´_ë„ë©”ì¸ë¶„ë¥˜ëª… _
+                                , aë°ì´í„°íƒ€ì…ê¸¸ì´ëª…:=aì†ì„±ë°ì´í„°íƒ€ì…ê¸¸ì´ëª… _
+                                , aë„ë©”ì¸ë¶„ë¥˜ëª…ì¡´ì¬ì—¬ë¶€:=bì†ì„±ì¢…ê²°ì–´_ë„ë©”ì¸ë¶„ë¥˜ì¡´ì¬ì—¬ë¶€)
 
-        If b¼Ó¼ºÁ¾°á¾î_µµ¸ŞÀÎºĞ·ùÁ¸Àç¿©ºÎ = False Then
-            sResult = sResult + vbLf + "¼Ó¼ºÁ¾°á¾î:µµ¸ŞÀÎºĞ·ù ¾øÀ½"
+        If bì†ì„±ì¢…ê²°ì–´_ë„ë©”ì¸ë¶„ë¥˜ì¡´ì¬ì—¬ë¶€ = False Then
+            sResult = sResult + vbLf + "ì†ì„±ì¢…ê²°ì–´:ë„ë©”ì¸ë¶„ë¥˜ ì—†ìŒ"
         End If
 
         If Not oStdDomain Is Nothing Then
-            '¼Ó¼º ºĞ·ù¾î¿¡ ÁöÁ¤µÈ µ¥ÀÌÅÍÅ¸ÀÔ Áß ¼Ó¼º µ¥ÀÌÅÍ Å¸ÀÔÀÌ Á¸ÀçÇÔ
-            sResult = GetCompareResult("µµ¸ŞÀÎ", oStdDomainAtt, oStdDomain)
+            'ì†ì„± ë¶„ë¥˜ì–´ì— ì§€ì •ëœ ë°ì´í„°íƒ€ì… ì¤‘ ì†ì„± ë°ì´í„° íƒ€ì…ì´ ì¡´ì¬í•¨
+            sResult = GetCompareResult("ë„ë©”ì¸", oStdDomainAtt, oStdDomain)
         Else
-            sResult = sResult + vbLf + "µµ¸ŞÀÎ Ãß°¡ ÇÊ¿ä <" + _
-                      IIf(s¼Ó¼ºÁ¾°á¾î_µµ¸ŞÀÎºĞ·ù¸í > "", s¼Ó¼ºÁ¾°á¾î_µµ¸ŞÀÎºĞ·ù¸í, a¼Ó¼ºÁ¾°á¾î) + _
-                      ">: " + a¼Ó¼ºµ¥ÀÌÅÍÅ¸ÀÔ±æÀÌ¸í
+            sResult = sResult + vbLf + "ë„ë©”ì¸ ì¶”ê°€ í•„ìš” <" + _
+                      IIf(sì†ì„±ì¢…ê²°ì–´_ë„ë©”ì¸ë¶„ë¥˜ëª… > "", sì†ì„±ì¢…ê²°ì–´_ë„ë©”ì¸ë¶„ë¥˜ëª…, aì†ì„±ì¢…ê²°ì–´) + _
+                      ">: " + aì†ì„±ë°ì´í„°íƒ€ì…ê¸¸ì´ëª…
         End If
     End If
     '----------------------------------------------------------------------------------------------
@@ -157,85 +161,94 @@ Public Function GetCheckAttrDataType(a¼Ó¼ºÁ¾°á¾î As String, a¼Ó¼ºÁ¾°á¾îStdWord A
     GetCheckAttrDataType = sResult
 End Function
 
-Public Function GetStdDomain(aµµ¸ŞÀÎºĞ·ù¸í As String, _
-        aµ¥ÀÌÅÍÅ¸ÀÔ±æÀÌ¸í As String, aµµ¸ŞÀÎºĞ·ù¸íÁ¸Àç¿©ºÎ As Boolean) As CStdDomain
+Public Function GetStdDomain(aë„ë©”ì¸ë¶„ë¥˜ëª… As String, _
+        aë°ì´í„°íƒ€ì…ê¸¸ì´ëª… As String, aë„ë©”ì¸ë¶„ë¥˜ëª…ì¡´ì¬ì—¬ë¶€ As Boolean) As CStdDomain
     Dim oResult As CStdDomain, oTypeDic As Dictionary
-    aµµ¸ŞÀÎºĞ·ù¸íÁ¸Àç¿©ºÎ = False
-    If m_oStdDomainDicT.Exists(aµµ¸ŞÀÎºĞ·ù¸í) Then
-        aµµ¸ŞÀÎºĞ·ù¸íÁ¸Àç¿©ºÎ = True
-        Set oTypeDic = m_oStdDomainDicT(aµµ¸ŞÀÎºĞ·ù¸í)
-        If oTypeDic.Exists(aµ¥ÀÌÅÍÅ¸ÀÔ±æÀÌ¸í) Then Set oResult = oTypeDic(aµ¥ÀÌÅÍÅ¸ÀÔ±æÀÌ¸í)
+    aë„ë©”ì¸ë¶„ë¥˜ëª…ì¡´ì¬ì—¬ë¶€ = False
+    If m_oStdDomainDicT.Exists(aë„ë©”ì¸ë¶„ë¥˜ëª…) Then
+        aë„ë©”ì¸ë¶„ë¥˜ëª…ì¡´ì¬ì—¬ë¶€ = True
+        Set oTypeDic = m_oStdDomainDicT(aë„ë©”ì¸ë¶„ë¥˜ëª…)
+        Dim sëŒ€ë¬¸ìë°ì´í„°íƒ€ì…ê¸¸ì´ëª… As String
+        sëŒ€ë¬¸ìë°ì´í„°íƒ€ì…ê¸¸ì´ëª… = UCase(aë°ì´í„°íƒ€ì…ê¸¸ì´ëª…)
+        If oTypeDic.Exists(sëŒ€ë¬¸ìë°ì´í„°íƒ€ì…ê¸¸ì´ëª…) Then Set oResult = oTypeDic(sëŒ€ë¬¸ìë°ì´í„°íƒ€ì…ê¸¸ì´ëª…)
     End If
     Set GetStdDomain = oResult
 End Function
 
-Public Function ExistsDomainDataType(aµµ¸ŞÀÎºĞ·ù¸í As String, _
-        aµ¥ÀÌÅÍÅ¸ÀÔ±æÀÌ¸í As String) As Boolean
+Public Function ExistsDomainDataType(aë„ë©”ì¸ë¶„ë¥˜ëª… As String, _
+        aë°ì´í„°íƒ€ì…ê¸¸ì´ëª… As String) As Boolean
     Dim bResult As Boolean, oTypeDic As Dictionary
     bResult = False
-    If m_oStdDomainDicT.Exists(aµµ¸ŞÀÎºĞ·ù¸í) Then
-        Set oTypeDic = m_oStdDomainDicT(aµµ¸ŞÀÎºĞ·ù¸í)
-        If oTypeDic.Exists(aµ¥ÀÌÅÍÅ¸ÀÔ±æÀÌ¸í) Then bResult = True
+    If m_oStdDomainDicT.Exists(aë„ë©”ì¸ë¶„ë¥˜ëª…) Then
+        Set oTypeDic = m_oStdDomainDicT(aë„ë©”ì¸ë¶„ë¥˜ëª…)
+        If oTypeDic.Exists(aë°ì´í„°íƒ€ì…ê¸¸ì´ëª…) Then bResult = True
     End If
     ExistsDomainDataType = bResult
 End Function
 
-'µÎ DomainÀÇ TypeSize ºñ±³°á°ú return
-'aDomainAtt: ºñ±³±âÁØ Domain (¼Ó¼ºÁöÁ¤ Type/Size)
-'aDomainTgt: ºñ±³´ë»ó Domain (¿ë¾î ¶Ç´Â ¼Ó¼ººĞ·ù¾î Type/Size)
+'ë‘ Domainì˜ TypeSize ë¹„êµê²°ê³¼ return
+'aDomainAtt: ë¹„êµê¸°ì¤€ Domain (ì†ì„±ì§€ì • Type/Size)
+'aDomainTgt: ë¹„êµëŒ€ìƒ Domain (ìš©ì–´ ë˜ëŠ” ì†ì„±ë¶„ë¥˜ì–´ Type/Size)
 Public Function GetCompareResult(aCompareType As String, _
             aDomainAtt As CStdDomain, aDomainTgt As CStdDomain) As String
     Dim sResult As String
-    sResult = aCompareType + " Type/Size ºñ±³ °á°ú"
-    If aDomainAtt.m_sµ¥ÀÌÅÍÅ¸ÀÔ¸í <> aDomainTgt.m_sµ¥ÀÌÅÍÅ¸ÀÔ¸í Then
-        sResult = sResult + vbLf + "Å¸ÀÔ ºÒÀÏÄ¡"
+    sResult = aCompareType + " Type/Size ë¹„êµ ê²°ê³¼"
+    If aDomainAtt.m_së°ì´í„°íƒ€ì…ëª… <> aDomainTgt.m_së°ì´í„°íƒ€ì…ëª… Then
+        sResult = sResult + vbLf + "íƒ€ì… ë¶ˆì¼ì¹˜"
     End If
-    If aDomainAtt.m_i±æÀÌ <> aDomainTgt.m_i±æÀÌ Then
-        sResult = sResult + vbLf + "±æÀÌ ºÒÀÏÄ¡"
-        If aDomainAtt.m_i±æÀÌ > aDomainTgt.m_i±æÀÌ Then '¼Ó¼ºÀÇ Size°¡ ´õ Å« °æ¿ì(µµ¸ŞÀÎ Ãß°¡ ¶Ç´Â ¼Ó¼º size Á¶Á¤)
-            sResult = sResult + "(°¨¼Ò! µµ¸ŞÀÎ Ãß°¡ ¶Ç´Â ¼Ó¼º Size Á¶Á¤ ÇÊ¿ä)"
-        ElseIf aDomainAtt.m_i±æÀÌ < aDomainTgt.m_i±æÀÌ Then 'ºñ±³ ´ë»ó Domain Size°¡ ´õ Å« °æ¿ì(´ëºÎºĞÀº ¹®Á¦¾øÀ½)
-            sResult = sResult + "(Áõ°¡ È®ÀÎ)"
+    
+    If aDomainAtt.IsStringLength Or aDomainTgt.IsStringLength Then
+        If UCase(aDomainAtt.m_sê¸¸ì´) <> UCase(aDomainTgt.m_sê¸¸ì´) Then
+            sResult = sResult + vbLf + "ê¸¸ì´ ë¶ˆì¼ì¹˜"
+        Else
+            sResult = aCompareType + " Type/Size ì¼ì¹˜"
         End If
-    ElseIf aDomainAtt.m_iÁ¤µµ <> aDomainTgt.m_iÁ¤µµ Then
-        sResult = sResult + vbLf + "¼Ò¼öÁ¡ ±æÀÌ ºÒÀÏÄ¡"
-        If aDomainAtt.m_iÁ¤µµ > aDomainTgt.m_iÁ¤µµ Then '¼Ó¼ºÀÇ Size°¡ ´õ Å« °æ¿ì(µµ¸ŞÀÎ Ãß°¡ ¶Ç´Â ¼Ó¼º size Á¶Á¤)
-            sResult = sResult + "(°¨¼Ò! µµ¸ŞÀÎ Ãß°¡ ¶Ç´Â ¼Ó¼º Size Á¶Á¤ ÇÊ¿ä)"
-        ElseIf aDomainAtt.m_iÁ¤µµ < aDomainTgt.m_iÁ¤µµ Then 'ºñ±³ ´ë»ó Domain Size°¡ ´õ Å« °æ¿ì(´ëºÎºĞÀº ¹®Á¦¾øÀ½)
-            sResult = sResult + "(Áõ°¡ È®ÀÎ)"
-  End If
+    ElseIf aDomainAtt.m_iê¸¸ì´ <> aDomainTgt.m_iê¸¸ì´ Then
+        sResult = sResult + vbLf + "ê¸¸ì´ ë¶ˆì¼ì¹˜"
+        If aDomainAtt.m_iê¸¸ì´ > aDomainTgt.m_iê¸¸ì´ Then 'ì†ì„±ì˜ Sizeê°€ ë” í° ê²½ìš°(ë„ë©”ì¸ ì¶”ê°€ ë˜ëŠ” ì†ì„± size ì¡°ì •)
+            sResult = sResult + "(ê°ì†Œ! ë„ë©”ì¸ ì¶”ê°€ ë˜ëŠ” ì†ì„± Size ì¡°ì • í•„ìš”)"
+        ElseIf aDomainAtt.m_iê¸¸ì´ < aDomainTgt.m_iê¸¸ì´ Then 'ë¹„êµ ëŒ€ìƒ Domain Sizeê°€ ë” í° ê²½ìš°(ëŒ€ë¶€ë¶„ì€ ë¬¸ì œì—†ìŒ)
+            sResult = sResult + "(ì¦ê°€ í™•ì¸)"
+        End If
+    ElseIf aDomainAtt.m_iì •ë„ <> aDomainTgt.m_iì •ë„ Then
+        sResult = sResult + vbLf + "ì†Œìˆ˜ì  ê¸¸ì´ ë¶ˆì¼ì¹˜"
+        If aDomainAtt.m_iì •ë„ > aDomainTgt.m_iì •ë„ Then 'ì†ì„±ì˜ Sizeê°€ ë” í° ê²½ìš°(ë„ë©”ì¸ ì¶”ê°€ ë˜ëŠ” ì†ì„± size ì¡°ì •)
+            sResult = sResult + "(ê°ì†Œ! ë„ë©”ì¸ ì¶”ê°€ ë˜ëŠ” ì†ì„± Size ì¡°ì • í•„ìš”)"
+        ElseIf aDomainAtt.m_iì •ë„ < aDomainTgt.m_iì •ë„ Then 'ë¹„êµ ëŒ€ìƒ Domain Sizeê°€ ë” í° ê²½ìš°(ëŒ€ë¶€ë¶„ì€ ë¬¸ì œì—†ìŒ)
+            sResult = sResult + "(ì¦ê°€ í™•ì¸)"
+        End If
     Else
-  sResult = aCompareType + " Type/Size ÀÏÄ¡"
+        sResult = aCompareType + " Type/Size ì¼ì¹˜"
     End If
     GetCompareResult = sResult
 End Function
 
 
-''µÎ DomainÀÇ TypeSize ºñ±³°á°ú return
-''aDomainAtt: ºñ±³±âÁØ Domain (¼Ó¼ºÁöÁ¤ Type/Size)
-''aDomainTgt: ºñ±³´ë»ó Domain (¿ë¾î ¶Ç´Â ¼Ó¼ººĞ·ù¾î Type/Size)
+''ë‘ Domainì˜ TypeSize ë¹„êµê²°ê³¼ return
+''aDomainAtt: ë¹„êµê¸°ì¤€ Domain (ì†ì„±ì§€ì • Type/Size)
+''aDomainTgt: ë¹„êµëŒ€ìƒ Domain (ìš©ì–´ ë˜ëŠ” ì†ì„±ë¶„ë¥˜ì–´ Type/Size)
 'Public Function GetCompareResult(aCompareType As String, _
 '            aDomainAtt As CStdDomain, aDomainTgt As CStdDomain) As String
 '    Dim sResult As String
-'    sResult = aCompareType + " Type/Size ºñ±³ °á°ú"
-'    If aDomainAtt.m_sµ¥ÀÌÅÍÅ¸ÀÔ¸í <> aDomainTgt.m_sµ¥ÀÌÅÍÅ¸ÀÔ¸í Then
-'        sResult = sResult + vbLf + "Å¸ÀÔ ºÒÀÏÄ¡"
-'    ElseIf aDomainAtt.m_i±æÀÌ <> aDomainTgt.m_i±æÀÌ Then
-'        sResult = sResult + vbLf + "±æÀÌ ºÒÀÏÄ¡"
-'        If aDomainAtt.m_i±æÀÌ > aDomainTgt.m_i±æÀÌ Then '¼Ó¼ºÀÇ Size°¡ ´õ Å« °æ¿ì(µµ¸ŞÀÎ Ãß°¡ ¶Ç´Â ¼Ó¼º size Á¶Á¤)
-'            sResult = sResult + "(µµ¸ŞÀÎ Ãß°¡ ¶Ç´Â ¼Ó¼º Size Á¶Á¤ ÇÊ¿ä)"
-''        Else 'ºñ±³ ´ë»ó Domain Size°¡ ´õ Å« °æ¿ì(´ëºÎºĞÀº ¹®Á¦¾øÀ½)
+'    sResult = aCompareType + " Type/Size ë¹„êµ ê²°ê³¼"
+'    If aDomainAtt.m_së°ì´í„°íƒ€ì…ëª… <> aDomainTgt.m_së°ì´í„°íƒ€ì…ëª… Then
+'        sResult = sResult + vbLf + "íƒ€ì… ë¶ˆì¼ì¹˜"
+'    ElseIf aDomainAtt.m_iê¸¸ì´ <> aDomainTgt.m_iê¸¸ì´ Then
+'        sResult = sResult + vbLf + "ê¸¸ì´ ë¶ˆì¼ì¹˜"
+'        If aDomainAtt.m_iê¸¸ì´ > aDomainTgt.m_iê¸¸ì´ Then 'ì†ì„±ì˜ Sizeê°€ ë” í° ê²½ìš°(ë„ë©”ì¸ ì¶”ê°€ ë˜ëŠ” ì†ì„± size ì¡°ì •)
+'            sResult = sResult + "(ë„ë©”ì¸ ì¶”ê°€ ë˜ëŠ” ì†ì„± Size ì¡°ì • í•„ìš”)"
+''        Else 'ë¹„êµ ëŒ€ìƒ Domain Sizeê°€ ë” í° ê²½ìš°(ëŒ€ë¶€ë¶„ì€ ë¬¸ì œì—†ìŒ)
 ''            sResult = sResult + ""
 '        End If
-'    ElseIf aDomainAtt.m_iÁ¤µµ <> aDomainTgt.m_iÁ¤µµ Then
-'        sResult = sResult + vbLf + "¼Ò¼öÁ¡ ±æÀÌ ºÒÀÏÄ¡"
-'        If aDomainAtt.m_iÁ¤µµ > aDomainTgt.m_iÁ¤µµ Then '¼Ó¼ºÀÇ Size°¡ ´õ Å« °æ¿ì(µµ¸ŞÀÎ Ãß°¡ ¶Ç´Â ¼Ó¼º size Á¶Á¤)
-'            sResult = sResult + "(µµ¸ŞÀÎ Ãß°¡ ¶Ç´Â ¼Ó¼º Size Á¶Á¤ ÇÊ¿ä)"
-''        Else 'ºñ±³ ´ë»ó Domain Size°¡ ´õ Å« °æ¿ì(´ëºÎºĞÀº ¹®Á¦¾øÀ½)
+'    ElseIf aDomainAtt.m_iì •ë„ <> aDomainTgt.m_iì •ë„ Then
+'        sResult = sResult + vbLf + "ì†Œìˆ˜ì  ê¸¸ì´ ë¶ˆì¼ì¹˜"
+'        If aDomainAtt.m_iì •ë„ > aDomainTgt.m_iì •ë„ Then 'ì†ì„±ì˜ Sizeê°€ ë” í° ê²½ìš°(ë„ë©”ì¸ ì¶”ê°€ ë˜ëŠ” ì†ì„± size ì¡°ì •)
+'            sResult = sResult + "(ë„ë©”ì¸ ì¶”ê°€ ë˜ëŠ” ì†ì„± Size ì¡°ì • í•„ìš”)"
+''        Else 'ë¹„êµ ëŒ€ìƒ Domain Sizeê°€ ë” í° ê²½ìš°(ëŒ€ë¶€ë¶„ì€ ë¬¸ì œì—†ìŒ)
 ''            sResult = sResult + ""
 '  End If
 '    Else
-'  sResult = aCompareType + " Type/Size ÀÏÄ¡"
+'  sResult = aCompareType + " Type/Size ì¼ì¹˜"
 '    End If
 '    GetCompareResult = sResult
 'End Function
