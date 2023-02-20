@@ -13,10 +13,11 @@ import time
 import multiprocessing
 import numpy as np
 
-_version_ = '0.40'
+_version_ = '0.41'
 
 
 # Version History
+# v0.41(2023-02-19): DB table, column comment 파일에서 단어 추출후 "단어빈도" 시트에 DB-Schema 발생 빈도(DBSchema_Freq) 항목 추가
 # v0.40(2021-08-29): MS Word, PowerPoint, Text 파일에서 단어 추출후 "단어빈도" 시트에 출처(Source) 항목 추가
 # v0.30(2021-04-26): DB table, column comment 파일에서 단어 추출후 "단어빈도" 시트에 출처(Source) 항목 추가
 # v0.20(2021-02-21): Multiprocessing 적용 버전
@@ -52,6 +53,7 @@ def get_word_list(df_text) -> DataFrame:
             db = row['DB']
             schema = row['Schema']
             table = row['Table']
+            db_schema = row['DBSchema']
             if is_db_column:
                 column = row['Column']
 
@@ -98,14 +100,15 @@ def get_word_list(df_text) -> DataFrame:
                         #                  index=['FileName', 'FileType', 'Page', 'Text', 'Word', 'DB', 'Schema', 'Table'])
                         df_word = DataFrame(
                             {'FileName': [file_name], 'FileType': [file_type], 'Page': [page], 'Text': [text],
-                             'Word': [word], 'DB': [db], 'Schema': [schema], 'Table': [table], 'Source': [source]})
+                             'Word': [word], 'DB': [db], 'Schema': [schema], 'Table': [table], 'Source': [source],
+                             'DBSchema': [db_schema]})
                     elif is_db_column:
                         # sr_text = Series([file_name, file_type, page, text, word, db, schema, table, column],
                         #                  index=['FileName', 'FileType', 'Page', 'Text', 'Word', 'DB', 'Schema', 'Table', 'Column'])
                         df_word = DataFrame(
                             {'FileName': [file_name], 'FileType': [file_type], 'Page': [page], 'Text': [text],
                              'Word': [word], 'DB': [db], 'Schema': [schema], 'Table': [table], 'Column': [column],
-                             'Source': [source]})
+                             'Source': [source], 'DBSchema': [db_schema]})
                     # df_result = df_result.append(sr_text, ignore_index=True)  # Todo: append를 concat으로 바꾸기
                     df_result = pd.concat([df_result, df_word], ignore_index=True)
         except Exception as ex:
@@ -337,6 +340,7 @@ def get_db_comment_text(file_name) -> DataFrame:
 
     excel_file.Close()
     df_text = df_column.append(df_table, ignore_index=True)
+    df_text['DBSchema'] = df_text['DB'] + '.' + df_text['Schema']  # DB.Schema 값 생성(2023-02-19)
     # print(df_text)
     end_time = time.time()
     # elapsed_time = end_time - start_time
@@ -447,7 +451,6 @@ def main():
         print('--- File List ---')
         print('\n'.join(file_list))
 
-
     if db_comment_file is not None:
         file_list.append(db_comment_file)
 
@@ -476,12 +479,15 @@ def main():
     # ------------------------------
 
     print('[%s] Start Get Word Frequency...' % get_current_datetime())
-    # df_group = pd.DataFrame(df_result.groupby(by='Word').size().sort_values(ascending=False))
-    df_result_subset = df_result[['Word', 'Source']]  # 빈도수를 구하기 위해 필요한 column만 추출
-    # df_group = df_result_subset.groupby(by='Word').agg(['count', lambda x: list(x)])
-    df_group = df_result_subset.groupby(by='Word').agg(['count', lambda x: '\n'.join(list(x)[:10])])
-    df_group.index.name = 'Word'  # index명 재지정
-    df_group.columns = ['Freq', 'Source']  # column명 재지정
+    df_group = df_result.groupby('Word').agg({
+        'Word': 'count',
+        'Source': lambda x: '\n'.join(list(x)[:10]),
+        'DBSchema': 'nunique'
+    }).rename(columns={
+        'Word': 'Freq',
+        'Source': 'Source',
+        'DBSchema': 'DBSchema_Freq'
+    })
     df_group = df_group.sort_values(by='Freq', ascending=False)
     print('[%s] Finish Get Word Frequency.' % get_current_datetime())
     # df_group['Len'] = df_group['Word'].str.len()
