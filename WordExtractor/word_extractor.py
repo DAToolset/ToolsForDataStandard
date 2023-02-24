@@ -17,6 +17,7 @@ _version_ = '0.41'
 
 
 # Version History
+# v0.42(2023-02-24): DB table, column comment 파일이 아닌 in_path의 파일로부터만 단어 추출하는 경우 "Column(s) ['DBSchema'] do not exist" 오류 패치
 # v0.41(2023-02-19): DB table, column comment 파일에서 단어 추출후 "단어빈도" 시트에 DB-Schema 발생 빈도(DBSchema_Freq) 항목 추가
 # v0.40(2021-08-29): MS Word, PowerPoint, Text 파일에서 단어 추출후 "단어빈도" 시트에 출처(Source) 항목 추가
 # v0.30(2021-04-26): DB table, column comment 파일에서 단어 추출후 "단어빈도" 시트에 출처(Source) 항목 추가
@@ -469,25 +470,41 @@ def main():
         mp_result = pool.map(get_word_list, df_text_split)
 
     df_result = pd.concat(mp_result, ignore_index=True)
-    if 'DB' not in df_result.columns:
-        df_result['DB'] = ''
-        df_result['Schema'] = ''
-        df_result['Table'] = ''
-        df_result['Column'] = ''
+    # if 'DB' not in df_result.columns:
+    #     df_result['DB'] = ''
+    #     df_result['Schema'] = ''
+    #     df_result['Table'] = ''
+    #     df_result['Column'] = ''
+    #     df_result['DBSchema'] = ''
 
     print('[%s] Finish Get Word from File Text.' % get_current_datetime())
     # ------------------------------
 
     print('[%s] Start Get Word Frequency...' % get_current_datetime())
-    df_group = df_result.groupby('Word').agg({
-        'Word': 'count',
-        'Source': lambda x: '\n'.join(list(x)[:10]),
-        'DBSchema': 'nunique'
-    }).rename(columns={
-        'Word': 'Freq',
-        'Source': 'Source',
-        'DBSchema': 'DBSchema_Freq'
-    })
+    if 'DB' in df_result.columns:
+        df_group = df_result.groupby('Word').agg({
+            'Word': 'count',
+            'Source': lambda x: '\n'.join(list(x)[:10]),
+            'DBSchema': 'nunique'
+        }).rename(columns={
+            'Word': 'Freq',
+            'Source': 'Source',
+            'DBSchema': 'DBSchema_Freq'
+        })
+    else:
+        df_result['DB'] = ''
+        df_result['Schema'] = ''
+        df_result['Table'] = ''
+        df_result['Column'] = ''
+        df_result['DBSchema'] = ''
+
+        df_group = df_result.groupby('Word').agg({
+            'Word': 'count',
+            'Source': lambda x: '\n'.join(list(x)[:10])
+        }).rename(columns={
+            'Word': 'Freq',
+            'Source': 'Source'
+        })
     df_group = df_group.sort_values(by='Freq', ascending=False)
     print('[%s] Finish Get Word Frequency.' % get_current_datetime())
     # df_group['Len'] = df_group['Word'].str.len()
