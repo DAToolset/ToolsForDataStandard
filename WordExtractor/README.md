@@ -35,3 +35,8 @@ https://prodskill.com/ko/word-extractor-additional-information/
 7. 단어 추출 도구 설명글 목록, 목차, 다운로드 (Word Extraction Tool Description article list, table of contents, download)   
 https://prodskill.com/ko/word-extractor-toc/   
 
+8. 단어 추출 도구 v0.41 배포: 단어의 DBSchema 발생 빈도 항목을 추가   
+https://prodskill.com/ko/word-extractor-v0-41-dbschema_freq-added/   
+
+9. 단어 추출 도구 v0.42 배포: Bug fix   
+https://prodskill.com/ko/word-extractor-v0-42-bug-fix-for-dbschema/   
